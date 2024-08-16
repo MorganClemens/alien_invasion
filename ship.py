@@ -3,10 +3,10 @@ import pygame
 class Ship:
     #Class to manage the ship
 
-    def __init__(self):
+    def __init__(self, ai_game):
         #Initialize the ship and set starting position
         self.screen = ai_game.screen
-        self.screen_rect = ai_game.screen.get.rect()
+        self.screen_rect = ai_game.screen.get_rect()
 
         #Load the ship image and get its rect
         self.image = pygame.image.load('images/ship.bmp')
@@ -18,4 +18,4 @@ class Ship:
     def blitme(self):
         #Draw the ship at current location
         self.screen.blit(self.image, self.rect)
-        
+
