@@ -16,7 +16,7 @@ class Ship:
         # Start each new ship at the bottom center of screen
         self.rect.midbottom = self.screen_rect.midbottom
 
-        # Store a float for ship x position
+        # Store a float for ship x,y position
         self.x = float(self.rect.x)
         self.y = float(self.rect.y)
 
