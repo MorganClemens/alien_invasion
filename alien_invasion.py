@@ -4,6 +4,7 @@ import pygame
 
 from settings import Settings
 from ship import Ship
+from bullet import Bullet
 
 class AlienInvasion:
     """Overall class to manage game asets and behavior"""
@@ -18,6 +19,8 @@ class AlienInvasion:
 
         # Create an instance of the ship
         self.ship = Ship(self)
+        # Group that holds bullets
+        self.bullets = pygame.sprite.Group()
 
 
     def run_game(self):
@@ -25,6 +28,7 @@ class AlienInvasion:
         while True:
             self._check_events()
             self.ship.update()
+            self.bullets.update()
             self._update_screen()
             # Set the target framerate to 60 fps
             self.clock.tick(60)
