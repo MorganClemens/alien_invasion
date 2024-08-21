@@ -28,14 +28,7 @@ class AlienInvasion:
         while True:
             self._check_events()
             self.ship.update()
-            self.bullets.update()
-
-            # Delete of bullets that have travelled off-screen
-            for bullet in self.bullets.copy():
-                if bullet.rect.bottom <= 0:
-                    self.bullets.remove(bullet)
-            print(len(self.bullets))
-
+            self._update_bullets()
             self._update_screen()
             # Set the target framerate to 60 fps
             self.clock.tick(60)
@@ -82,6 +75,15 @@ class AlienInvasion:
         if len(self.bullets) < self.settings.bullets_allowed:
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
+
+    def _update_bullets(self):
+        # Updates the positon of bullets and deletes old bullets
+        self.bullets.update()
+        # Delete of bullets that have travelled off-screen
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <= 0:
+                    self.bullets.remove(bullet)
+        print(len(self.bullets))
 
 
     def _update_screen(self):
