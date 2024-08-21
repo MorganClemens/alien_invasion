@@ -37,11 +37,11 @@ class AlienInvasion:
     def _check_events(self):
         # Respond to keypresses and mouse events
         for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    sys.exit()
-                elif event.type == pygame.KEYDOWN:
+            if event.type == pygame.QUIT:
+                sys.exit()
+            elif event.type == pygame.KEYDOWN:
                     self._check_keydown_events(event)
-                elif event.type == pygame.KEYUP:
+            elif event.type == pygame.KEYUP:
                     self._check_keyup_events(event)
 
     def _check_keydown_events(self, event):
@@ -54,6 +54,8 @@ class AlienInvasion:
             self.ship.moving_up = True
         elif event.key == pygame.K_DOWN:
             self.ship.moving_down = True
+        elif event.key == pygame.K_SPACE:
+            self._fire_bullet()
         elif event.key == pygame.K_q:
             sys.exit()
     
@@ -68,10 +70,18 @@ class AlienInvasion:
         elif event.key == pygame.K_DOWN:
             self.ship.moving_down = False
 
+    def _fire_bullet(self):
+        # Create a new bullet and add it to the bullets group
+        new_bullet = Bullet(self)
+        self.bullets.add(new_bullet)
+
+
     def _update_screen(self):
         # Update images on screen, and flip to new screen
         # Redraw the screen during each pass through the loop
         self.screen.fill(self.settings.bg_color)
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
         self.ship.blitme()
         # Make the most recently drawn screen visible
         pygame.display.flip()
