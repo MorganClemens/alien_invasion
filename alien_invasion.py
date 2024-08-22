@@ -1,34 +1,38 @@
-# Dependencies
+# Import Dependencies
 import sys
 import pygame
-
+# Import Classes
 from settings import Settings
 from ship import Ship
 from bullet import Bullet
 
 class AlienInvasion:
-    """Overall class to manage game asets and behavior"""
+    #Overall class to manage game asets and behavior
 
     def __init__(self):
         # Initialize the game, and create game resources 
+        
         pygame.init()
         self.clock = pygame.time.Clock()
         self.settings = Settings()
+        # Set the screen dimensions
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption("Alien Invasion")
-
         # Create an instance of the ship
         self.ship = Ship(self)
-        # Group that holds bullets
+        # Create group that holds bullets
         self.bullets = pygame.sprite.Group()
 
 
     def run_game(self):
         # Initialize main game loop
+
         while True:
             self._check_events()
+            # Update ship position
             self.ship.update()
             self._update_bullets()
+            # Re-draw the screen with preceeding updates
             self._update_screen()
             # Set the target framerate to 60 fps
             self.clock.tick(60)
@@ -36,6 +40,7 @@ class AlienInvasion:
 
     def _check_events(self):
         # Respond to keypresses and mouse events
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
@@ -46,6 +51,7 @@ class AlienInvasion:
 
     def _check_keydown_events(self, event):
         # Respond to key presses
+
         if event.key == pygame.K_RIGHT:
             self.ship.moving_right = True
         elif event.key == pygame.K_LEFT:
@@ -61,6 +67,7 @@ class AlienInvasion:
     
     def _check_keyup_events(self, event):
         # Respond to key releases
+
         if event.key == pygame.K_RIGHT:
             self.ship.moving_right = False
         elif event.key == pygame.K_LEFT:
@@ -72,12 +79,14 @@ class AlienInvasion:
 
     def _fire_bullet(self):
         # Create a new bullet and add it to the bullets group
+
         if len(self.bullets) < self.settings.bullets_allowed:
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
 
     def _update_bullets(self):
         # Updates the positon of bullets and deletes old bullets
+        
         self.bullets.update()
         # Delete of bullets that have travelled off-screen
         for bullet in self.bullets.copy():
@@ -88,16 +97,19 @@ class AlienInvasion:
 
     def _update_screen(self):
         # Update images on screen, and flip to new screen
+
         # Redraw the screen during each pass through the loop
         self.screen.fill(self.settings.bg_color)
+        # Draws bullets in bullet group
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
+        # Draws ship
         self.ship.blitme()
         # Make the most recently drawn screen visible
         pygame.display.flip()
 
 
 if __name__ == '__main__':
-    # Make game instance, and run the game.
+    # Make game instance, and run the game
     ai = AlienInvasion()
     ai.run_game()
