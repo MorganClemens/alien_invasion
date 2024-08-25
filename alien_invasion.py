@@ -5,6 +5,7 @@ import pygame
 from settings import Settings
 from ship import Ship
 from bullet import Bullet
+from alien import Alien
 
 class AlienInvasion:
     #Overall class to manage game asets and behavior
@@ -22,6 +23,10 @@ class AlienInvasion:
         self.ship = Ship(self)
         # Create group that holds bullets
         self.bullets = pygame.sprite.Group()
+        # Create group that holds alien ships
+        self.aliens = pygame.sprite.Group()
+        # Invoke create fleet helper method
+        self._create_fleet()
 
 
     def run_game(self):
@@ -93,6 +98,11 @@ class AlienInvasion:
             if bullet.rect.bottom <= 0:
                     self.bullets.remove(bullet)
         print(len(self.bullets))
+    
+    def _create_fleet(self):
+        # Create the fleet of aliens
+        alien = Alien(self)
+        self.aliens.add(alien)
 
 
     def _update_screen(self):
@@ -105,6 +115,8 @@ class AlienInvasion:
             bullet.draw_bullet()
         # Draws ship
         self.ship.blitme()
+        # Draws alien(s)
+        self.aliens.draw(self.screen)
         # Make the most recently drawn screen visible
         pygame.display.flip()
 
