@@ -39,8 +39,8 @@ class AlienInvasion:
             self._update_bullets()
             # Re-draw the screen with preceeding updates
             self._update_screen()
-            # Set the target framerate to 60 fps
-            self.clock.tick(60)
+            # Set the target framerate to 144 fps
+            self.clock.tick(144)
 
 
     def _check_events(self):
