@@ -37,10 +37,13 @@ class AlienInvasion:
             # Update ship position
             self.ship.update()
             self._update_bullets()
+            # Update alien fleet position
+            self._update_aliens()
             # Re-draw the screen with preceeding updates
             self._update_screen()
             # Set the target framerate to 144 fps
             self.clock.tick(144)
+
 
 
     def _check_events(self):
@@ -98,6 +101,10 @@ class AlienInvasion:
             if bullet.rect.bottom <= 0:
                     self.bullets.remove(bullet)
         print(len(self.bullets))
+
+    def _update_aliens(self):
+        # Updates the position of all aliens in the fleet
+        self.aliens.update()
     
     def _create_fleet(self):
         # Create the fleet of aliens
