@@ -104,8 +104,9 @@ class AlienInvasion:
 
     def _update_aliens(self):
         # Updates the position of all aliens in the fleet
+        self._check_fleet_edges() # lack of check fleet edges in _update_aliens caused a bug where fleet wouldn't check edges
         self.aliens.update()
-    
+        
     def _create_fleet(self):
         # Create the fleet of aliens
 
@@ -138,8 +139,10 @@ class AlienInvasion:
 
         for alien in self.aliens.sprites():
             if alien.check_edges():
+                print("ALien at edge!")
                 self._change_fleet_direction()
                 break
+
     def _change_fleet_direction(self):
         # Drop entire fleet and change the fleet direction
         for alien in self.aliens.sprites():
