@@ -102,6 +102,10 @@ class AlienInvasion:
                     self.bullets.remove(bullet)
         print(len(self.bullets))
 
+        # check for any bullets that have hit aliens
+        #   if so, remove the bullet and the alien
+        collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
+
     def _update_aliens(self):
         # Updates the position of all aliens in the fleet
         self._check_fleet_edges() # lack of check fleet edges in _update_aliens caused a bug where fleet wouldn't check edges
