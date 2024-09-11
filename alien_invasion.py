@@ -154,7 +154,7 @@ class AlienInvasion:
 
         for alien in self.aliens.sprites():
             if alien.check_edges():
-                print("ALien at edge!")
+                print("Alien at edge!")
                 self._change_fleet_direction()
                 break
 
