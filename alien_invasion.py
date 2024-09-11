@@ -117,6 +117,10 @@ class AlienInvasion:
         # Updates the position of all aliens in the fleet
         self._check_fleet_edges() # lack of check fleet edges in _update_aliens caused a bug where fleet wouldn't check edges
         self.aliens.update()
+
+        # Look for alien-ship collisions
+        if pygame.sprite.spritecollideany(self.ship, self.aliens):
+            print("Ship hit!!!")
         
     def _create_fleet(self):
         # Create the fleet of aliens
