@@ -48,8 +48,6 @@ class AlienInvasion:
             # Set the target framerate to 144 fps
             self.clock.tick(144)
 
-
-
     def _check_events(self):
         # Respond to keypresses and mouse events
 
