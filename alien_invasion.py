@@ -126,6 +126,9 @@ class AlienInvasion:
         if pygame.sprite.spritecollideany(self.ship, self.aliens):
             self._ship_hit()
         
+        # Look for aliens hitting the bottom of the screen
+        self._check_aliens_bottom()
+        
     def _create_fleet(self):
         # Create the fleet of aliens
 
@@ -166,24 +169,16 @@ class AlienInvasion:
         # Drop entire fleet and change the fleet direction
         for alien in self.aliens.sprites():
             alien.rect.y += self.settings.fleet_drop_speed
-        self.settings.fleet_direction *= -1
-
-
-    def _update_screen(self):
-        # Update images on screen, and flip to new screen
-
-        # Redraw the screen during each pass through the loop
-        self.screen.fill(self.settings.bg_color)
-        # Draws bullets in bullet group
-        for bullet in self.bullets.sprites():
-            bullet.draw_bullet()
-        # Draws ship
-        self.ship.blitme()
-        # Draws alien(s)
-        self.aliens.draw(self.screen)
-        # Make the most recently drawn screen visible
-        pygame.display.flip()
-
+        self.settings.fleet_direction *= -1     
+    
+    def _check_aliens_bottom(self):
+        # Check if any aliens have reached the bottom of the screen
+        for alien in self.aliens.sprites():
+            if alien.rect.bottom >= self.settings.screen_height:
+                # Treat this the same as if the ship got hit
+                self._ship_hit()
+                break
+    
     def _ship_hit(self):
         # Respond to the ship being hit by an alien
         # Decrement ships left
@@ -199,6 +194,21 @@ class AlienInvasion:
 
         # Pause
         sleep(0.5)
+
+    def _update_screen(self):
+        # Update images on screen, and flip to new screen
+
+        # Redraw the screen during each pass through the loop
+        self.screen.fill(self.settings.bg_color)
+        # Draws bullets in bullet group
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
+        # Draws ship
+        self.ship.blitme()
+        # Draws alien(s)
+        self.aliens.draw(self.screen)
+        # Make the most recently drawn screen visible
+        pygame.display.flip()
 
 
 if __name__ == '__main__':
