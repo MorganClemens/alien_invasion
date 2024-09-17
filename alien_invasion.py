@@ -14,7 +14,6 @@ class AlienInvasion:
 
     def __init__(self):
         # Initialize the game, and create game resources 
-        
         pygame.init()
         self.clock = pygame.time.Clock()
         self.settings = Settings()
@@ -36,7 +35,6 @@ class AlienInvasion:
 
     def run_game(self):
         # Initialize main game loop
-
         while True:
             self._check_events()
 
@@ -55,7 +53,6 @@ class AlienInvasion:
 
     def _check_events(self):
         # Respond to keypresses and mouse events
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
@@ -66,7 +63,6 @@ class AlienInvasion:
 
     def _check_keydown_events(self, event):
         # Respond to key presses
-
         if event.key == pygame.K_RIGHT:
             self.ship.moving_right = True
         elif event.key == pygame.K_LEFT:
@@ -82,7 +78,6 @@ class AlienInvasion:
     
     def _check_keyup_events(self, event):
         # Respond to key releases
-
         if event.key == pygame.K_RIGHT:
             self.ship.moving_right = False
         elif event.key == pygame.K_LEFT:
@@ -94,14 +89,12 @@ class AlienInvasion:
 
     def _fire_bullet(self):
         # Create a new bullet and add it to the bullets group
-
         if len(self.bullets) < self.settings.bullets_allowed:
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
 
     def _update_bullets(self):
         # Updates the positon of bullets and deletes old bullets
-        
         self.bullets.update()
         # Delete of bullets that have travelled off-screen
         for bullet in self.bullets.copy():
@@ -134,7 +127,6 @@ class AlienInvasion:
         
     def _create_fleet(self):
         # Create the fleet of aliens
-
         # Create an alien and keep adding aliens until there's no room left
         # Spacing between aliens is one alien width and one alien height
         alien = Alien(self)
@@ -152,7 +144,6 @@ class AlienInvasion:
 
     def _create_alien(self, x_position, y_position):
         # Create an alien and place it in the fleet
-
         new_alien = Alien(self)
         new_alien.x = x_position
         new_alien.rect.x = x_position
@@ -161,7 +152,6 @@ class AlienInvasion:
 
     def _check_fleet_edges(self):
         # Responds when aliens have reached the edge of the screen
-
         for alien in self.aliens.sprites():
             if alien.check_edges():
                 print("Alien at edge!")
@@ -203,7 +193,6 @@ class AlienInvasion:
 
     def _update_screen(self):
         # Update images on screen, and flip to new screen
-
         # Redraw the screen during each pass through the loop
         self.screen.fill(self.settings.bg_color)
         # Draws bullets in bullet group
