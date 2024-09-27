@@ -5,6 +5,7 @@ import pygame
 # Import Classes
 from settings import Settings
 from game_stats import GameStats
+from scoreboard import Scoreboard
 from button import Button
 from ship import Ship
 from bullet import Bullet
@@ -21,8 +22,9 @@ class AlienInvasion:
         # Set the screen dimensions
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption("Alien Invasion")
-        # Create an instance to store the game statistics
+        # Create an instance to store the game statistics and create scoreboard
         self.stats = GameStats(self)
+        self.sb = Scoreboard(self)
         # Create an instance of the ship
         self.ship = Ship(self)
         # Create group that holds bullets
@@ -45,6 +47,7 @@ class AlienInvasion:
                 # Run these parts of the game when the game is active
                 # Update ship position
                 self.ship.update()
+                # Update bullet position
                 self._update_bullets()
                 # Update alien fleet position
                 self._update_aliens()
@@ -228,6 +231,8 @@ class AlienInvasion:
         self.ship.blitme()
         # Draws alien(s)
         self.aliens.draw(self.screen)
+        # Draw the score information
+        self.sb.show_score()
         # Draw the play button if the game is inactive
         if not self.game_active:
             self.play_button.draw_button()
